@@ -88,12 +88,12 @@ def parse_csv(file_path):
     data = []
 
     with open(file_path, 'r') as file:
-        reader = csv.reader(file)
+        reader = csv.reader(file, delimiter="-")
         for row in reader:
             try:
-                # Safely parse the input and output arrays
-                input_array = np.array(ast.literal_eval(row[0])).flatten()
-                output_array = np.array(ast.literal_eval(row[1])).flatten()
+                # format and add data from csv
+                input_array = sum(ast.literal_eval(row[0]), [])
+                output_array = sum(ast.literal_eval(row[1]), [])
                 data.append([input_array, output_array])
             except (SyntaxError, ValueError) as e:
                 print(f"Error parsing row: {row}. Skipping. Error: {e}")
